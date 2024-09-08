@@ -9,7 +9,7 @@ export default function ResetPassword() {
     let [resetQuery, setResetQuery] = useSearchParams();
     const navigate = useNavigate();
 
-
+    axios.defaults.withCredentials = true;
     const resetFun = async () => {
         setErr('');
         //getting id and token from the link using query and new Password from input

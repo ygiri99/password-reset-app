@@ -4,6 +4,7 @@ import axios from 'axios';
 export default function User() {
 
     const [user, setUser] = useState([]);
+    axios.defaults.withCredentials = true;
 
     async function getUsers() {
         try {

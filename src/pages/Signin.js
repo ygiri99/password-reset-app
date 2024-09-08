@@ -11,6 +11,7 @@ export default function Signin() {
     const navigate = useNavigate();
 
     //API for signin
+    axios.defaults.withCredentials = true;
     const signInFun = async () => {
         setErr('');
         try {
