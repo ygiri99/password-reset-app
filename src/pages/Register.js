@@ -10,7 +10,7 @@ export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [mobile, setMobile] = useState('');
-    const [role, setRole] = useState('');
+    const [role, setRole] = useState(undefined);
     const [address, setAddress] = useState('');
 
     async function submit(e) {
@@ -19,13 +19,20 @@ export default function Register() {
         try {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/register`, payload);
             if (response) {
-                window.alert(response.data);
-                navigate(`/signout`);
+                navigate(`/signin`);
             }
         } catch (error) {
-            console.log(`Error while singUp ${error}`);
+            let mail = /email/.test(error.response.data);
+            let mobile = /mobile/.test(error.response.data);
+            if (mail) {
+                alert('Email already exists');
+            }
+            else if (mobile) {
+                alert('Mobile number already exists');
+            }
+            else
+                alert(`Error while singUp ${error.response.data}`);
         }
-        navigate("/");
     }
 
     return (

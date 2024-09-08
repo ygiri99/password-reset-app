@@ -4,6 +4,9 @@ import { RiAccountCircleLine } from 'react-icons/ri';
 
 export default function Header() {
 
+    //Check Login or not using token
+    let authToken = localStorage.getItem('Token');
+
     return (
         <div className="text-center">
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -36,7 +39,7 @@ export default function Header() {
                             <input className="form-control me-2" id='header-search' type="search" placeholder="Search" aria-label="Search" />
                             <button className="btn btn-outline-success" type="submit">Search</button>
                         </form>
-                        {document.cookie === '' ? <Link to={"/register"}><h3><RiAccountCircleLine /></h3></Link> :
+                        {!authToken ? <Link to={"/register"}><h3><RiAccountCircleLine /></h3></Link> :
                             <div className="dropdown">
                                 <div data-bs-toggle="dropdown" aria-expanded="false">
                                     <h3><RiAccountCircleLine /></h3></div>
@@ -44,8 +47,9 @@ export default function Header() {
                                     <li className='dropdown-item'><Link to={"/signout"} className='text-decoration-none'>Signout</Link></li>
                                 </ul>
                             </div>}
-                        {document.cookie === '' ? <Link to={"/signin"} className='nav-link'>Login</Link> :
-                            <Link to={"/signout"} className='nav-link'>Logout</Link>}
+                        {//Display according authToken
+                            authToken == null ? <Link to={"/signin"} className='nav-link'>Login</Link> :
+                                <Link to={"/signout"} className='nav-link'>Logout</Link>}
                     </div>
                 </div>
             </nav>

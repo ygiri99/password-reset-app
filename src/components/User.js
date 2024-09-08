@@ -7,10 +7,16 @@ export default function User() {
 
     async function getUsers() {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/user`, { withCredentials: true, credentials: 'include' });
-            setUser(response.data);
-            //console.log(document.cookie);
+            //Using token getting the user detail to display
+            let authToken = localStorage.getItem('Token');
 
+            if (authToken) {
+                const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/user`, { authToken });
+                setUser(response.data);
+            }
+            else {
+                alert('signIn first');
+            }
         } catch (error) {
             console.log(`Error while loading users: ${error}`);
         }

@@ -5,11 +5,14 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 export default function ResetPassword() {
     const [newPassword, setNewPassword] = useState('');
     const [err, setErr] = useState('');
+    //using searchParams
     let [resetQuery, setResetQuery] = useSearchParams();
     const navigate = useNavigate();
 
+
     const resetFun = async () => {
         setErr('');
+        //getting id and token from the link using query and new Password from input
         const userId = resetQuery.get("id");
         const token = resetQuery.get("token");
         const data = { userId, token, newPassword };
@@ -21,8 +24,10 @@ export default function ResetPassword() {
             }
         } catch (error) {
             console.log(`Error while reset Password ${error}`);
+            //Alert message for Expired token 
             if (error.response.data.message === 'Invalid or expired token.') {
-                window.alert('Token Expired')
+                window.alert('Token Expired');
+                navigate("/forgot");
             }
             else {
                 setErr(error.response.data.message);

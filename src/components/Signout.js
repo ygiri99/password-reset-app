@@ -10,9 +10,12 @@ export default function Signout() {
     useEffect(() => {
         const signOutFun = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/signout`, { withCredentials: true, credentials: 'include' });
-                console.log('signed Out', response.data.message); setMessage(response.data.message);
+                //Removing authToken to signOut
+                localStorage.removeItem('Token');
+                const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/signout`);
+                setMessage(response.data.message);
                 navigate('/');
+
             } catch (error) {
                 console.log(`Error while signOut: ${error}`);
             }

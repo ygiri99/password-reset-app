@@ -15,13 +15,15 @@ export default function Signin() {
         setErr('');
         try {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/signin`,
-                { email, password }, { withCredentials: true, credentials: 'include' });
+                { email, password });
             if (response) {
+                alert(response.data.message);
+                //setting AuthToken in local storage
+                localStorage.setItem('Token', response.data.accessToken);
                 navigate(`/user`);
             }
         } catch (error) {
-            console.log(`Error while singIn ${error.response.data.message}`);
-            setErr(error.response.data.message);
+            !error.response.data ? console.log(`Error while singIn ${error}`) : setErr(error.response.data.message);
         }
     }
     return (
