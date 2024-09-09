@@ -20,6 +20,7 @@ export default function ResetPassword() {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/reset-password`, data);
             if (response) {
                 window.alert(`Resetted successfully`);
+                setResetQuery('');
                 navigate("/signin")
             }
         } catch (error) {
