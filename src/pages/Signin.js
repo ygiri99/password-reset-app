@@ -16,7 +16,7 @@ export default function Signin() {
         setErr('');
         try {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/signin`,
-                { email, password }, { credentials: true, origin: 'https://password-reset-berg.onrender.com' });
+                { email, password }, { credentials: true });
             if (response) {
                 alert(response.data.message);
                 //setting AuthToken in local storage
