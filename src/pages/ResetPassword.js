@@ -17,7 +17,7 @@ export default function ResetPassword() {
         const token = resetQuery.get("token");
         const data = { userId, token, newPassword };
         try {
-            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/reset-password`, data);
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/reset-password`, data, { credentials: true, origin: 'https://password-reset-berg.onrender.com/resetPassword' });
             if (response) {
                 window.alert(`Resetted successfully`);
                 setResetQuery('');
